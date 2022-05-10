@@ -63,7 +63,16 @@ an = []
 #Chronic Kidney Disease (1 for yes, 0 for no)
 ckd = []
 #Assigning data
+rows = []
 for row in filereader:
+    rows.append(row)
+i = 0
+while i < len(rows):
+    #Shuffle the data so that there are ckd patients in testing and training data 
+    if i == len(rows)-2:
+        i = 1
+    row = rows[i]
+    i+=2
     age.append(float(row[0]))
     bp.append(float(row[1]))
     sg.append(float(row[2]))
@@ -146,7 +155,8 @@ traininputs = [age[0:int(len(age)/2)],
                app[0:int(len(age)/2)], 
                ed[0:int(len(age)/2)], 
                an[0:int(len(age)/2)]]
-trainoutputs = np.array(ckd[0:int(len(age)/2)]).T
+trainoutputs = [np.array(ckd[0:int(len(age)/2)])]
+print(trainoutputs)
 testinputs = [age[int(len(age)/2):int(len(age)-1)], 
                bp[int(len(age)/2):int(len(age)-1)], 
                sg[int(len(age)/2):int(len(age)-1)], 
@@ -171,10 +181,12 @@ testinputs = [age[int(len(age)/2):int(len(age)-1)],
                app[int(len(age)/2):int(len(age)-1)], 
                ed[int(len(age)/2):int(len(age)-1)], 
                an[int(len(age)/2):int(len(age)-1)]]
-testoutputs = np.array(ckd[int(len(age)/2):int(len(age)-1)]).T
-
-inputs = np.array(traininputs).astype(float)
-outputs = np.array(trainoutputs).astype(float)
+testoutputs = [np.array(ckd[int(len(age)/2):int(len(age)-1)])]
+print(testoutputs)
+inputs = np.array(traininputs).astype(float).T
+outputs = np.array(trainoutputs).astype(float).T
+testinputs = np.array(testinputs).astype(float).T
+tesoutputs = np.array(testoutputs).astype(float).T
 neural_network = NeuralNet(24)
 neural_network.train(outputs, inputs, 10000)
 print(neural_network.calc_output(testinputs[0]))
