@@ -73,8 +73,9 @@ while i < len(rows):
         i = 1
     row = rows[i]
     i+=2
-    age.append(float(row[0]))
-    bp.append(float(row[1]))
+    #Make everything a 1 or a 0
+    age.append(float(row[0])/50)
+    bp.append(float(row[1])/74)
     sg.append(float(row[2]))
     al.append(float(row[3]))
     sug.append(float(row[4]))
@@ -94,15 +95,15 @@ while i < len(rows):
         bac.append(0)
     if row[8] == "present":
         bac.append(1)
-    bgr.append(float(row[9]))
-    bu.append(float(row[10]))
-    sc.append(float(row[11]))
-    na.append(float(row[12]))
-    k.append(float(row[13]))
-    hem.append(float(row[14]))
-    pcv.append(float(row[15]))
-    wbc.append(float(row[16]))
-    rbc.append(float(row[17]))
+    bgr.append(float(row[9])/131)
+    bu.append(float(row[10])/52)
+    sc.append(float(row[11])/2)
+    na.append(float(row[12])/138)
+    k.append(float(row[13])/4)
+    hem.append(float(row[14])/14)
+    pcv.append(float(row[15])/42)
+    wbc.append(float(row[16])/8475)
+    rbc.append(float(row[17])/5)
     if row[18] == "no":
         hyp.append(0)
     if row[18] == "yes":
@@ -128,7 +129,7 @@ while i < len(rows):
     if row[23] == "yes":
         an.append(1)
     ckd.append(float(row[24]))
-      
+
 file.close()
 
 traininputs = [age[0:int(len(age)/2)], 
