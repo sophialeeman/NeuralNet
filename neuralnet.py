@@ -1,16 +1,5 @@
 #imports
 import numpy as np
-import csv
-
-#Read csv
-file = open("trainingdata.csv")
-filereader = csv.reader(file)
-inputs = []
-outputs = []
-for row in filereader:
-    inputs.append(row[0:len(row)])
-    outputs.append(row[len(row)])
-file.close()
 
 #Define NeuralNet class
 class NeuralNet:
@@ -20,22 +9,21 @@ class NeuralNet:
         np.random.seed(1)
         #Initialize weight to a random value in the range -1 to 1
         self.weight = 2 * np.random.random((columns,1)) - 1 
-    def __calc_output(self, data):
+    def calc_output(self, data):
         #Calculate weighted sum
         weight_sum = np.dot(data, self.weight)
         #Sigmoid function normalizes result to lie between 0 and 1
         return 1 / (1 + np.exp(weight_sum * -1))
-    def __train(self, train_output, train_input, iterations):
+    def train(self, train_output, train_input, iterations):
         while(iterations > 0):
             iterations-=1
             #Calculate Guess
-            output = self.calcoutput(train_input)
+            output = self.calc_output(train_input)
             #Calculate Error in Guess
             error = train_output - output
             #Adjust Weights by Error Derivative Formula
-            adjust = np.dot(train_input, error * output * (1-output))
-            
-            
+            adjust = np.dot(train_input.T, error * output * (1-output))
+            self.weight += adjust
         
         
         
