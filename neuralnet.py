@@ -26,7 +26,16 @@ class NeuralNet:
         #Sigmoid function normalizes result to lie between 0 and 1
         return 1 / (1 + np.exp(weight_sum * -1))
     def __train(self, train_output, train_input, iterations):
-        
+        while(iterations > 0):
+            iterations-=1
+            #Calculate Guess
+            output = self.calcoutput(train_input)
+            #Calculate Error in Guess
+            error = train_output - output
+            #Adjust Weights by Error Derivative Formula
+            adjust = np.dot(train_input, error * output * (1-output))
+            
+            
         
         
         
