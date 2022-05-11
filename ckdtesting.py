@@ -157,7 +157,6 @@ traininputs = [age[0:int(len(age)/2)],
                ed[0:int(len(age)/2)], 
                an[0:int(len(age)/2)]]
 trainoutputs = [np.array(ckd[0:int(len(age)/2)])]
-print(trainoutputs)
 testinputs = [age[int(len(age)/2):int(len(age)-1)], 
                bp[int(len(age)/2):int(len(age)-1)], 
                sg[int(len(age)/2):int(len(age)-1)], 
@@ -183,12 +182,22 @@ testinputs = [age[int(len(age)/2):int(len(age)-1)],
                ed[int(len(age)/2):int(len(age)-1)], 
                an[int(len(age)/2):int(len(age)-1)]]
 testoutputs = [np.array(ckd[int(len(age)/2):int(len(age)-1)])]
-print(testoutputs)
 inputs = np.array(traininputs).astype(float).T
 outputs = np.array(trainoutputs).astype(float).T
 testinputs = np.array(testinputs).astype(float).T
 tesoutputs = np.array(testoutputs).astype(float).T
 neural_network = NeuralNet(24)
-neural_network.train(outputs, inputs, 10000)
-print(neural_network.calc_output(testinputs[0]))
+neural_network.train(outputs, inputs, 100000)
+results = neural_network.calc_output(testinputs)
+normalize = []
+for element in results:
+    if element < .5:
+        normalize.append(0)
+    else:
+        normalize.append(1)
+print(normalize)
 print(testoutputs)
+error = np.array(normalize) - testoutputs
+print(error)
+
+
