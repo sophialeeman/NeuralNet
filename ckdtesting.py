@@ -195,9 +195,22 @@ for element in results:
         normalize.append(0)
     else:
         normalize.append(1)
+print("Network Guessed:")
 print(normalize)
+print("Actual Values:")
 print(testoutputs)
 error = np.array(normalize) - testoutputs
+print("Error")
 print(error)
-
-
+sum = 0
+for element in error[0]:
+    sum += element
+percentaccuracy = (1 - abs((sum/len(error[0])))) * 100
+print("Percent Accuracy:")
+print(percentaccuracy)
+final_weights = neural_network.weight
+print("Weights assigned to each factor:")
+print(final_weights)
+important_factor = np.argmax(final_weights)
+print("Most important predictor of ckd:")
+print(header[important_factor])
